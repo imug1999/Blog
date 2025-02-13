@@ -1,72 +1,65 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="ko">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>NIKO</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✱</text></svg>">
-    <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&family=Orbit&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Prosto+One&display=swap" rel="stylesheet">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>NIKO</title>
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✱</text></svg>">
+        <link rel="stylesheet" href="style.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&family=Orbit&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Prosto+One&display=swap" rel="stylesheet">
+    </head>
 </head>
 <body>
     <nav>
         <h1>태경</h1>
         <ul>
-            <li><a href="/" id="home-link">Home</a></li>
-            <li><a id="tokyo-link">2025 도쿄여행</a></li>
+            <li><a href="#home" id="home-link">Home</a></li>
+            <li><a href="#tokyo" id="tokyo-link">2025 도쿄여행</a></li>
         </ul>
     </nav>
     <main id="main-content">
-        <h2>안녕하세요</h2>
-        <p><a href="https://www.instagram.com/_niko3203/">인스타그램</a></p>
-        <footer>
-            <hr>
-            <small>ⓒ 2025. 오태경 All rights reserved.</small>
-        </footer>
+        <!-- 초기 콘텐츠 -->
+        <h2>Load...</h2>
+        <p>Load...</p>
     </main>
+    <footer>
+        <hr>
+        <small>ⓒ 2025. 오태경 All rights reserved.</small>
+    </footer>
 
     <script>
-// 콘텐츠 로드 함수
-function loadContent(url, title, state, isMainOnly = false) {
-    fetch(url)
-        .then(response => response.text())
-        .then(data => {
-            if (isMainOnly) {
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(data, 'text/html');
-                document.getElementById('main-content').innerHTML = doc.querySelector('main').innerHTML;
-            } else {
-                document.getElementById('main-content').innerHTML = data;
-            }
-            history.pushState(state, title, `/${state.page}`);
-        })
-        .catch(error => console.error('Error fetching content:', error));
-}
-
-// "2025 도쿄여행" 클릭 
-document.getElementById('tokyo-link').addEventListener('click', function(event) {
-    event.preventDefault();
-    loadContent('/2025-tokyo.html', '2025 도쿄여행', { page: '2025-tokyo' });
-});
-
-// "Home" 클릭
-document.getElementById('home-link').addEventListener('click', function(event) {
-    event.preventDefault();
-    loadContent('/', 'Home', { page: 'home' }, true);
-});
-
-// 뒤로 가기/앞으로 가기 동작 처리
-window.addEventListener('popstate', function(event) {
-    if (event.state) {
-        if (event.state.page === '2025-tokyo') {
-            loadContent('/2025-tokyo.html', '2025 도쿄여행', event.state);
-        } else {
-            loadContent('/', 'Home', event.state, true);
+        // 콘텐츠 로드 함수
+        function loadContent(url) {
+            fetch(url)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('main-content').innerHTML = data;
+                })
+                .catch(error => console.error('Error fetching content:', error));
         }
-    }
-});
+
+        // 해시 변경 시 콘텐츠 로드
+        window.addEventListener('hashchange', () => {
+            const hash = window.location.hash;
+            if (hash === '#tokyo') {
+                loadContent('2025-tokyo.html');
+            } else {
+                loadContent('home.html');
+            }
+        });
+
+        // 초기 로드 시 해시 확인
+        window.addEventListener('load', () => {
+            const hash = window.location.hash;
+            if (hash === '#tokyo') {
+                loadContent('2025-tokyo.html');
+            } else {
+                loadContent('home.html');
+            }
+        });
     </script>
 </body>
 </html>
