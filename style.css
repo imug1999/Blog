@@ -1,0 +1,173 @@
+/* font import */
+.orbit-regular {
+    font-family: "Orbit", serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+  
+/* Basic Reset */
+body, h1, h2, h3, p, ul, li {
+    margin: 0;
+    padding: 0;
+    font-family: 'Orbit' !important;
+    line-height: 1.6;
+}
+
+/* Layout */
+body {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 20px;
+    padding: 20px;
+    padding-top: 30px;
+    max-width: 1000px;
+    margin: 0 auto;
+    font-size: 1.2em;
+}
+
+nav {
+    position: sticky;
+    top: 20px;
+    height: fit-content;
+}
+
+nav h1 {
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+nav ul {
+    list-style: none;
+}
+
+nav ul li {
+    margin-bottom: 5px;
+}
+
+nav a {
+    text-decoration: none;
+    color: inherit;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+main {
+    max-width: 640px;
+}
+
+main h2 {
+    font-size: 2.0em;
+}
+
+/* Typography */
+h1, h2, h3 {
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-weight: 400;
+    margin-bottom: 0.5em;
+}
+
+h1::before {
+    content: "✱ ";
+}
+
+
+p {
+    text-align: justify;
+}
+
+a {
+    color: inherit;
+    font-weight: 500;
+}
+
+ul {
+    text-align: justify;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+hr {
+    border: 0;
+    height: 1px;
+    background: #000;
+    margin: 1em 0;
+}
+
+footer {
+    grid-column: 1 / -1;
+    text-align: center;
+    margin-top: 2em;
+    font-size: 0.9em;
+}
+
+small {
+    font-size: 0.6em;
+}
+
+/* Dark Mode */
+@media (prefers-color-scheme: dark) {
+    body {
+        background: #141414;
+        color: #fff;
+    }
+
+    hr {
+        background: #fff;
+    }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 700px) {
+    body {
+        grid-template-columns: 1fr;
+        padding: 10px;
+        gap: 0;
+    }
+
+    nav {
+        margin: 10px;
+        position: static;
+        margin-bottom: 10px;
+    }
+
+    nav h1 {
+        font-size: 1.0em;
+        margin-bottom: 10px; /* 제목과 메뉴 사이 간격 조정 */
+    }
+
+    nav ul {
+        display: flex; /* 가로 배치 */
+        gap: 10px; /* 메뉴 아이템 사이 간격 */
+        padding: 0; /* 기본 패딩 제거 */
+        margin: 0; /* 기본 마진 제거 */
+    }
+
+    nav li {
+        font-size: 0.8em;
+        list-style: none; /* 불릿 제거 */
+    }
+
+    nav li:not(:last-child)::after {
+        content: " • ";
+    }
+
+    main {
+        padding: 0;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    h2 {
+        font-size: 1.2em;
+    }
+
+    p {
+        font-size: 0.8em;
+    }
+}
